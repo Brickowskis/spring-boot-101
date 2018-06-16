@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class AddCandyTest {
+public class DataJpaExampleTest {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -34,7 +34,6 @@ public class AddCandyTest {
 
         Candy actualCandy = this.repository.findByName("Krackel").get();
         assertThat(actualCandy).isEqualTo(expectedCandy());
-
     }
 
     private Candy expectedCandy() {

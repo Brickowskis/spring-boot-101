@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CandyJarControllerTest {
+public class RestTemplateExampleTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -50,4 +50,33 @@ public class CandyJarControllerTest {
                 .containsEntry("name", "Twix")
                 .containsEntry("quantity", 25);
     }
+
+    @Test
+    public void testUpdateCandy(){
+
+        this.restTemplate.put("/candy/2", new Candy("Swedish Fish", 18));
+
+        String response = this.restTemplate.getForObject("/candy/name/Swedish Fish", String.class);
+        Map actualCandy = JsonPath.read(response, "$");
+        assertThat(actualCandy)
+                .containsEntry("id", 2)
+                .containsEntry("name", "Swedish Fish")
+                .containsEntry("quantity", 18);
+    }
+
+    @Test
+    public void testAddCandy(){
+
+        this.restTemplate.postForObject("/candy", new Candy("Buckeyes", 50), Candy.class);
+
+        String body = this.restTemplate.getForObject("/candy/name/Buckeyes", String.class);
+        Map actualCandy = JsonPath.read(body, "$");
+        assertThat(actualCandy)
+                .containsEntry("id", 5)
+                .containsEntry("name", "Buckeyes")
+                .containsEntry("quantity", 50);
+
+    }
+
+
 }
