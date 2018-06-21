@@ -19,7 +19,7 @@ public class CandyJarApplication {
 	@Bean
 	CommandLineRunner init(CandyJarRepository candyJarRepository) {
 		return (evt) -> Arrays.asList(
-				"Gummy Bear,Swedish Fish,Twix,Sweettarts".split(","))
-				.forEach(c -> candyJarRepository.save(new Candy( c, 25)));
+				"Twix".split(","))
+				.forEach(c -> candyJarRepository.save(new Candy( c, 5)));
 	}
 }
