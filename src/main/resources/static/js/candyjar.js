@@ -1,31 +1,55 @@
+let Engine = Matter.Engine,
+    Render = Matter.Render,
+    World = Matter.World,
+    Bodies = Matter.Bodies,
+    Body = Matter.Body,
+    Events = Matter.Events;
+
+// create an engine
+let engine = Engine.create();
+
 $(document).ready(() => {
-
-    let Engine = Matter.Engine,
-        Render = Matter.Render,
-        World = Matter.World,
-        Bodies = Matter.Bodies,
-        Body = Matter.Body,
-        Events = Matter.Events;
-
-    // create an engine
-    let engine = Engine.create();
-
     // create a renderer
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+
     let render = Render.create({
         element: document.body,
-        engine: engine
+        engine: engine,
+        options: {
+            wireframes: false,
+            height: h,
+            width: w
+        }
     });
 
+    var jarHeight = h*0.8;
+    var jarwidth = jarHeight*0.5;
     let jarParts = {
-        bottom: Bodies.rectangle(400, 580, 170, 20, {
+        bottom: Bodies.rectangle(w/2, h-50, jarwidth, 20, {
             isStatic: true,
+            chamfer: {radius: 5},
             render: {
-                fillStyle: 'orange',
-                strokeStyle: 'black'
+                fillStyle: 'grey',
+                strokeStyle: 'white'
             }
         }),
-        right: Bodies.rectangle(475, 490, 20, 200, {isStatic: true, chamfer: {radius: 5}}),
-        left: Bodies.rectangle(325, 490, 20, 200, {isStatic: true, chamfer: {radius: 5}})
+        right: Bodies.rectangle((w/2)-(jarwidth/2), (h-50)-(jarHeight/2), 20, jarHeight, {
+            isStatic: true,
+            chamfer: {radius: 5},
+            render: {
+                fillStyle: 'grey',
+                strokeStyle: 'white'
+            }
+        }),
+        left: Bodies.rectangle((w/2)+(jarwidth/2), (h-50)-(jarHeight/2), 20, jarHeight, {
+            isStatic: true,
+            chamfer: {radius: 5},
+            render: {
+                fillStyle: 'grey',
+                strokeStyle: 'white'
+            }
+        })
     };
 
     let tipCup = [
@@ -43,47 +67,38 @@ $(document).ready(() => {
 
     });
 
-
     // run the engine
     Engine.run(engine);
 
     // run the renderer
     Render.run(render);
-
-
-    setInterval(() => {
-        World.add(engine.world,
-            Bodies.circle(455, 100, 10, {
-                density: 0.000000001,
-                frictionAir: 0.00001,
-                restitution: 0.6,
-                friction: -0.05,
-                slop: 0
-            }, 8)
-        );
-    }, 500);
-
-    setInterval(() => {
-        World.add(engine.world,
-            Bodies.circle(430, 100, 20, {
-                density: 100000,
-                slop: 0
-            }, 32)
-        );
-    }, 10000);
-
-    setInterval(() => {
-        World.add(engine.world,
-            Bodies.circle(440, 50, 30, {
-                density: 1000000000000,
-                slop: 0
-            }, 32)
-        );
-    }, 30000);
-
-
 });
 
+function drawCandy(allCandy) {
+    let bodies = [];
+    $.each(allCandy, function(i, val) {
+        for(let i = 0; i < val.quantity; i++) {
+            setTimeout(function() {
+                World.add(engine.world,
+                    Bodies.rectangle(window.innerWidth/2, 0, 100, 40, {
+                        density: 0.00001,
+                        slop: 0,
+                        render: {
+                            fillStyle: "#C44D58",
+                            sprite:{
+                                texture: 'images/'+val.name+'.jpg'
+                            }
+                        },
+                        torque: (Math.random()-.5)/10
+                    }, 8)
+                );
+            }, 1000);
+        }
+    });
+    $.each(bodies, function(i, val) {
+
+    });
+}
 
 function toRadians(angle) {
     return angle * (Math.PI / 180);
