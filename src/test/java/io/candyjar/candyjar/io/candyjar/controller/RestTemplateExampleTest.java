@@ -26,18 +26,19 @@ public class RestTemplateExampleTest {
         String body = this.restTemplate.getForObject("/candy", String.class);
 
         List<String> candy = JsonPath.read(body, "$..name");
-        assertThat(candy).containsOnly("Gummy Bear", "Swedish Fish", "Twix", "Sweettarts");
+        assertThat(candy)
+                .isNotEmpty()
+                .contains("Twix");
     }
 
     @Test
     public void testGetCandyById() {
-        String body = this.restTemplate.getForObject("/candy/1", String.class);
+        Candy actualCandy = this.restTemplate.getForObject("/candy/1", Candy.class);
 
-        Map actualCandy = JsonPath.read(body, "$");
         assertThat(actualCandy)
-                .containsEntry("id", 1)
-                .containsEntry("name", "Gummy Bear")
-                .containsEntry("quantity", 25);
+                .hasFieldOrPropertyWithValue("id", 1L)
+                .hasFieldOrPropertyWithValue("name", "Twix")
+                .hasFieldOrPropertyWithValue("quantity", 5);
     }
 
     @Test
@@ -46,36 +47,33 @@ public class RestTemplateExampleTest {
 
         Map actualCandy = JsonPath.read(body, "$");
         assertThat(actualCandy)
-                .containsEntry("id", 3)
+                .containsEntry("id", 1)
                 .containsEntry("name", "Twix")
-                .containsEntry("quantity", 25);
+                .containsEntry("quantity", 5);
     }
 
     @Test
-    public void testUpdateCandy(){
+    public void testUpdateCandy() {
 
-        this.restTemplate.put("/candy/2", new Candy("Swedish Fish", 18));
+        //add a new candy for this test so it's independent of the other tests.
+        Candy gummyBears = this.restTemplate.postForObject("/candy", new Candy("Gummy Bears", 50), Candy.class);
 
-        String response = this.restTemplate.getForObject("/candy/name/Swedish Fish", String.class);
-        Map actualCandy = JsonPath.read(response, "$");
-        assertThat(actualCandy)
-                .containsEntry("id", 2)
-                .containsEntry("name", "Swedish Fish")
-                .containsEntry("quantity", 18);
+        this.restTemplate.put("/candy/" + gummyBears.getId(), new Candy("Gummy Bears", 0));
+        Candy updatedCandy = this.restTemplate.getForObject("/candy/name/Gummy Bears", Candy.class);
+        assertThat(updatedCandy)
+                .hasFieldOrPropertyWithValue("name", "Gummy Bears")
+                .hasFieldOrPropertyWithValue("quantity", 0);
     }
 
     @Test
-    public void testAddCandy(){
+    public void testAddCandy() {
 
-        this.restTemplate.postForObject("/candy", new Candy("Buckeyes", 50), Candy.class);
+        this.restTemplate.postForObject("/candy", new Candy("Buckeyes", 20), Candy.class);
 
-        String body = this.restTemplate.getForObject("/candy/name/Buckeyes", String.class);
-        Map actualCandy = JsonPath.read(body, "$");
+        Candy actualCandy = this.restTemplate.getForObject("/candy/name/Buckeyes", Candy.class);
         assertThat(actualCandy)
-                .containsEntry("id", 5)
-                .containsEntry("name", "Buckeyes")
-                .containsEntry("quantity", 50);
-
+                .hasFieldOrPropertyWithValue("name", "Buckeyes")
+                .hasFieldOrPropertyWithValue("quantity", 20);
     }
 
 

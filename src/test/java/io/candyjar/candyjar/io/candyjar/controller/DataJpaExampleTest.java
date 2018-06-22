@@ -38,7 +38,7 @@ public class DataJpaExampleTest {
 
     private Candy expectedCandy() {
         Candy expectedCandy = new Candy("Krackel", 45);
-        expectedCandy.setId(5);
+        expectedCandy.setId(2);
         return expectedCandy;
     }
 }
