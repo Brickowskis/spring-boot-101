@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: candyjar
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans, configprops, env, health, info, mappings, metrics, shutdown
