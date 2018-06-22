@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class CandyJarController {
 
-	private final CandyJarService candyJarService;
+    private final CandyJarService candyJarService;
 
 	@GetMapping("/")
 	public ModelAndView index() {

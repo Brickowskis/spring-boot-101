@@ -30,8 +30,8 @@ public class CandyServiceServiceImpl implements CandyJarService {
 	}
 
 	@Override
-	public Candy findById(Long id) {
-		return repository.getOne(id);
+	public Optional<Candy> findById(long id) {
+		return repository.findById(id);
 	}
 
 	@Override

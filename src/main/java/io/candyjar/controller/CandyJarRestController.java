@@ -20,7 +20,7 @@ public class CandyJarRestController {
 	}
 
 	@GetMapping("/candy/{id}")
-	public Candy getCandyById(@PathVariable Long id) {
+	public Optional<Candy> getCandyById(@PathVariable Long id) {
 		return candyJarService.findById(id);
 	}
 
@@ -36,6 +36,7 @@ public class CandyJarRestController {
 
 	@PutMapping("/candy/{id}")
 	public Candy updateCandy(@PathVariable Long id, @RequestBody Candy candy) {
+		candy.setId(id);
 		return candyJarService.update(candy);
 	}
 }

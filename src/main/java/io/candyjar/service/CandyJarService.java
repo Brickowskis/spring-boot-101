@@ -12,7 +12,7 @@ public interface CandyJarService {
 
 	List<Candy> findAll();
 
-	Candy findById(Long id);
+	Optional<Candy> findById(long id);
 
 	Candy update(Candy candy);
 }
