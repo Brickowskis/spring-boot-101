@@ -1,4 +1,4 @@
-package io.candyjar.candyjar;
+package io.candyjar;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,5 +12,4 @@ public class CandyJarApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }

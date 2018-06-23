@@ -299,6 +299,28 @@ In the final module we'll add unit tests for our applications.
 
 cd into `04-unit-tesing`
 
+Add the following to your `pom.xml`
+
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-test</artifactId>
+	<scope>test</scope>
+</dependency>
+```
+Add the following test `io.candyjar.CandyJarApplicationTests`
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class CandyJarApplicationTests {
+
+	@Test
+	public void contextLoads() {
+	}
+}
+```
+
 Add the following test `io.candyjar.repository.DataJpaExampleTest`
 
 ```java

@@ -1,4 +1,4 @@
-package io.candyjar.candyjar.io.candyjar.controller;
+package io.candyjar.controller;
 
 
 import io.candyjar.model.Candy;

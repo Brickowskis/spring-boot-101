@@ -1,4 +1,4 @@
-package io.candyjar.candyjar.io.candyjar.controller;
+package io.candyjar.repository;
 
 import io.candyjar.model.Candy;
 import io.candyjar.repository.CandyJarRepository;
