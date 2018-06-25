@@ -79,7 +79,7 @@ management:
 
 Run the application 
 
-* `mvn spring-boot:run`
+* `mvn spring-boot:run -Dspring-boot.run.profiles=local`
 
 Actuators are available at the endpoint  `/actuator/<ID>`
 Hit the various actuator endpoints
