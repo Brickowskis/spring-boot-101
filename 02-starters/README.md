@@ -99,5 +99,5 @@ You should get a 404 error. See if you can figure out how to turn it on.
 
 ### Summary
 
-Congratulations you have just created your first spring boot application. 
+Congratulations you have just completed module 2. 
 Please cd into `03-spring-data` to prepare for the next module. 

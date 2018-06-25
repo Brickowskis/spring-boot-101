@@ -1,17 +1,26 @@
 ## Module 3
 
-In this module you'll hook up Spring Data JPA
+In this module we'll learn the basics of [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.0.2.RELEASE/reference/htmlsingle/#boot-features-jpa-and-spring-data).  Spring Data JPA is basic ORM mapper to map java objects to relational databases. 
 
 cd into `03-spring-data
 
-Add these dependencies to your `pom.xml`
+
+### Update our Dependencies
+
+Add the `spring-boot-starter-data-jpa` to your `pom.xml`
 
 ```xml
 <dependency>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-data-jpa</artifactId>
 </dependency>
+```
 
+Run a `mvn dependency:tree`. Inspect what libraries the starter pulled in for you
+
+Add these dependencies to your `pom.xml`.   
+
+```xml
 <dependency>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-devtools</artifactId>
@@ -24,6 +33,10 @@ Add these dependencies to your `pom.xml`
 	<scope>runtime</scope>
 </dependency>
 ```
+
+#### Important Concepts
+
+* Spring Boot database starters will automatially attempt to wire-up an in-memory database. H2 is a popular in-memory database supported by Spring Boot.
 
 Add the following to `application-local.yml`
 
@@ -39,7 +52,15 @@ spring:
       ddl-auto: create-drop
 ```
 
-Replace our `CandyJarRepository` with this interface
+#### Important Concepts
+* This will provide a browser based console Spring Boot will auto-configure for us.
+* H2 Console is only intended for development use. Take care to ensure it is not enabled in production.
+
+### Update the Repository
+
+We are going to replace the hard coded candy objects with an in-memory relational database. 
+
+Replace the `CandyJarRepository` with this interface
 
 ```java
 import io.candyjar.model.Candy;
@@ -53,7 +74,7 @@ public interface CandyJarRepository extends JpaRepository<Candy, Long> {
 }
 ```
 
-Update our `Candy` object. 
+### Update our `Candy` object. 
 
 Annotate the class with `@Entity`.
 Annotate the `id` field with `@Id` and `@GeneratedValue`
@@ -70,3 +91,18 @@ public class Candy {
 	@GeneratedValue
 	private long id;
 ```
+
+#### Important Concepts
+
+* `@Entity` annotation declares this object as a JPA managed entity.
+* `@Id` decaliase this field as the primary key of the entity
+* `@GeneratedValue` declares this field as a generated value that will be auto-incremented
+
+Run the application. 
+
+`mvn spring-boot:run`
+
+### Summary
+
+Congratulations you have just completed module 3. 
+Please cd into `04-spring-data` to prepare for the next module. 
