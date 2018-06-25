@@ -106,7 +106,6 @@ public class CandyJarApplication {
 * `SpringApplication.run` is spring's mechanism to bootstrap the application.
 
 ### Exposing RESTful endpoints
-
 Add the following method to `CandyJarController`
 
 ```java
@@ -174,7 +173,9 @@ Examine the contents of the jar file
 `jar tvf candyjar-0.0.1-SNAPSHOT.jar`
 
 You'll notice several things have been packaged into our jar to make an an uber runnable jar
-You'll also notice `candyjar-0.0.1-SNAPSHOT.jar.original`. Examine the contents
+You'll also notice another jar with a .original extension.
+
+Examine the contents
 
 `jar tvf candyjar-0.0.1-SNAPSHOT.jar.original`
 
