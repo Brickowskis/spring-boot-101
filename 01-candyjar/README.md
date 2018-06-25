@@ -4,9 +4,9 @@
  
 * You'll see a project has been started for us. However it's currently not a Spring Boot application. It won't even compile in its current state. 
 
-`pom.xml`
+### Creating the POM
 
-First we want to use the `spring-boot-starter-parent` 
+Modify your `pom.xml` to use the `spring-boot-starter-parent` 
 
 ```xml
 <parent>
@@ -16,6 +16,9 @@ First we want to use the `spring-boot-starter-parent`
 	<relativePath/> <!-- lookup parent from repository -->
 </parent>
 ```
+#### Important Concepts
+
+* The `spring-boot-starter-parent` pom provides sensible maven defaults. It also provides the dependency managment for Spring Boot so you can omit the `version` tag in your dependencies.  
 
 Next add the following dependencies
 
@@ -24,19 +27,23 @@ Next add the following dependencies
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter</artifactId>
 </dependency>
+
 <dependency>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
+
 <dependency>
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-web</artifactId>
 </dependency>
+
 <dependency>
 	<groupId>org.projectlombok</groupId>
 	<artifactId>lombok</artifactId>
 	<scope>provided</scope>
 </dependency>
+
 <dependency>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-devtools</artifactId>
@@ -44,11 +51,20 @@ Next add the following dependencies
 </dependency>
 ```
 
-Finally add the `spring-boot-maven-plugin` and change the packaging type to `jar`
+#### Important Concepts
+
+* Spring Boot uses the concept of `starter` dependencies. The `starters` provide the dependencies you are likely to need for that type of `functionality`. 
+* Run the command `mvn dependency:tree` and analyze the dependencies that are brought in by each starter. 
+
+### Make the JAR executable
+
+Add the `spring-boot-maven-plugin` and change the packaging type to `jar`
 
 ```xml
    <packaging>jar</packaging>
 ```
+
+Add the `spring-boot-maven-plugin` to the plugins section of your pom. 
 
 ```xml
   <plugin>
@@ -57,7 +73,13 @@ Finally add the `spring-boot-maven-plugin` and change the packaging type to `jar
   </plugin>
 ```
 
-At this point the application should compile. 
+#### Important Concepts
+
+* The `sprint-boot-maven-plugin` creates an exectuable jar during maven's `repackage` phase. 
+* The `spring-boot-starter-parent` provides most of the configuration for the plugin. Take a peek inside the parent pom to see.
+
+
+### Create the entry point
 
 Modify the `CandyJarApplication` so it looks like this
 
@@ -78,7 +100,12 @@ public class CandyJarApplication {
 }
 ```
 
-Add the following to `CandyJarController`
+#### Important Concepts
+
+* `@SpringBootApplication` is a convenience annotation for `@Configuration`, `@ComponentScan`, `@EnableAutoConfiguration`
+* `SpringApplication.run` is spring's mechanism to bootstrap the application.
+
+Add the following method to `CandyJarController`
 
 ```java
 @GetMapping("/")
@@ -90,7 +117,7 @@ public ModelAndView index() {
 }
 ```
 
-Add the following methods to `CandyJarRestController`
+Add the following methods to `CandyJarRestController` and annotate the class with `@RestController`
 
 ```java
 @GetMapping("/candy")
@@ -119,8 +146,10 @@ public Candy updateCandy(@PathVariable Long id, @RequestBody Candy candy) {
 	return candyJarService.update(candy);
 }
 ```
+#### Important Concepts
 
-Make sure the class is annotated with `@RestController`
+* These methods will expose RESTful endpoints on our application. 
+* The `spring-boot-starter-web` is pulling in most of the dependencies we need. 
 
 At this point we can run the application
 
@@ -128,12 +157,25 @@ At this point we can run the application
 
 Hit the following URL in Chrome
 
-`http://localhost:8080/`
+* `http://localhost:8080/`
 
 The following REST endpoints should also be exposed.
 
-`http://localhost:8080/candy/`
+* `http://localhost:8080/candy/`
 
-`http://localhost:8080/candy/1`
+* `http://localhost:8080/candy/1`
 
-`http://localhost:8080/candy/name/Twix`
+* `http://localhost:8080/candy/name/Twix`
+
+Examine the contents of the jar file
+
+`jar tvf candyjar-0.0.1-SNAPSHOT.jar
+
+You'll also notice a `candyjar-0.0.1-SNAPSHOT.jar`. 
+This is what the jar file looked like before it was modified by the `spring-boot-maven-plugin` during the `repackage` phase
+
+
+### Summary
+
+Congratulations you have just created your first spring boot application. 
+Please cd into `02-starters` to prepare for the next module. 
