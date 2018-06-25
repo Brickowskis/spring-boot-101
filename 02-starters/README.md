@@ -1,15 +1,10 @@
 ## Module 2
 
-In this module we'll swap out logback for log4j2 and turn on the Spring Boot [Actuators](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)
+In module 2 we'll take a closer look at the `spring-boot-starters` and [Actuators](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)
+* We are going to experiment with our transitive dependencies by swapping out [logback](https://logback.qos.ch/) for [log4j2](https://logging.apache.org/log4j/2.x/).  
+* We will turn on actuator support for diagnostics and management of our application. 
 
-Add the following to your `pom.xml`
-
-```xml
-<dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-actuator</artifactId>
-</dependency>
-```
+### Change logging implementation
 
 Exclude this dependency 
 
@@ -30,10 +25,26 @@ Add the `log4j2` starter
 
 ```xml
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-log4j2</artifactId>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-log4j2</artifactId>
 </dependency>
 ```
+
+
+### Turning on Actuator Support
+
+Add the following to your `pom.xml`
+
+```xml
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+For security it may not be ideal to have all possible actuators exposed. 
+By default all actuators except for `shutdown` are enabled. 
+Spring Boot has a mechanism to enable/disable the different endpoints. 
 
 Add the following to `application.yml`
 
@@ -45,6 +56,12 @@ management:
         include: beans, configprops, env, health, info, mappings, metrics, shutdown
 ```
 
+#### Important concepts
+* There are two ways to invoke actuators. `jmx` and `http`.
+* `http` or web actuators are exposed as endpoints on your application. They can be invoked via curl or a web browser.
+* The above config exposes only the actuators listed in the `include`. 
+* All other are disabled. The `exclude` takes precedence over `include`
+
 Add the following to `application-local.yml`
 
 ```yml
@@ -54,12 +71,19 @@ management:
       enabled: true
 ```
 
-Run the application `mvn spring-boot:run`
+#### Important concepts
+* This turns on the shutdown actuator. 
+
+Run the application 
+
+* `mvn spring-boot:run`
 
 Hit the various actuator endpoints
 
-`http://localhost:8080/actuator/health`
+* [http://localhost:8080/actuator/health](http://localhost:8080/actuator/health)
 
-`http://localhost:8080/actuator/beans`
+* [http://localhost:8080/actuator/beans](http://localhost:8080/actuator/beans)
 
-`http://localhost:8080/actuator/mappings`
+* [http://localhost:8080/actuator/mappings](http://localhost:8080/actuator/mappings)
+
+Actuators are available at the endpoint  `/actuator/<ID>`

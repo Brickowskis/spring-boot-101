@@ -102,7 +102,7 @@ public class CandyJarApplication {
 
 #### Important Concepts
 
-* `@SpringBootApplication` is a convenience annotation for `@Configuration`, `@ComponentScan`, `@EnableAutoConfiguration`
+* `@SpringBootApplication` is a convenience annotation for `@SpringBootConfiguration`, `@ComponentScan`, `@EnableAutoConfiguration`
 * `SpringApplication.run` is spring's mechanism to bootstrap the application.
 
 ### Exposing RESTful endpoints
