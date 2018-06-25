@@ -13,6 +13,19 @@ Add the following to your `pom.xml`
 	<scope>test</scope>
 </dependency>
 ```
+Run a `mvn dependency:tree`. Inspect the additional libraries the starter pulled in. 
+
+#### Important concepts
+* The `spring-boot-starter-test` brings in commonly used testing libraries
+  * [JUnit](https://junit.org/junit4/): The de-facto standard for unit testing Java applications.
+  * [Spring Test & Spring Boot Test](https://docs.spring.io/spring/docs/5.0.7.RELEASE/spring-framework-reference/testing.html#integration-testing): Utilities and integration test support for Spring Boot applications.
+  * [AssertJ](https://joel-costigliola.github.io/assertj/): A fluent assertion library.
+  * [Hamcrest](http://hamcrest.org/JavaHamcrest/): A library of matcher objects (also known as constraints or predicates).
+  * [Mockito](http://site.mockito.org/): A Java mocking framework.
+  * [JSONassert](https://github.com/skyscreamer/JSONassert): An assertion library for JSON.
+  * [JsonPath](https://github.com/json-path/JsonPath): XPath for JSON.
+
+
 Add the following test `io.candyjar.CandyJarApplicationTests`
 
 ```java
@@ -25,6 +38,8 @@ public class CandyJarApplicationTests {
 	}
 }
 ```
+
+This test validates the spring context loads successfully. 
 
 Add the following test `io.candyjar.repository.DataJpaExampleTest`
 
@@ -58,11 +73,16 @@ public class DataJpaExampleTest {
     }
 }
 ```
+### Important Concepts
+
+* `@RunWith(SpringRunner.class)` tells JUnit to run using Spring's testing support.
+* `@DataJpaTest` configures an in-memory database, scans for `@Entity` classes and confgirues the JPA repository.
+* `TestEntityManager` is an alternative to the standard `EntityManager`. It's designed specifically for tests. 
+
 
 Add the following test `io.candyjar.controller.MockMvcSampleTest`
 
 ```java
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -117,6 +137,13 @@ public class MockMvcSampleTest {
 
 }
 ```
+#### Important Concepts
+
+* `@SpringBootTest` bootstraps a local Spring Boot environment for testing
+* `@AutoConfigureMockMvc` configures a Mock MVC environment
+* `@MockBean` injects a mock bean instance in place of a real bean. 
+* `given(...)` is the BDD mockito style syntax to setup behavior on our mock objects. 
+
 
 Add the following test `io.candyjar.controller.RestTemplateExampleTest`
 
@@ -184,3 +211,11 @@ public class RestTemplateExampleTest {
     }
 }
 ```
+#### Important Concepts
+* Sometimes it's more beneficial to execute the controllers as a client would. 
+* 'TestRestTemplate' is made available by `@SpringBootTest` and pre-configured for local integration testing. 
+
+### Summary
+
+Congratulations you have just completed module 4. We hope you have enjoyed this introduction to Spring Boot
+

@@ -97,7 +97,7 @@ public class Candy {
 
 * `@Entity` annotation declares this object as a JPA managed entity.
 * `@Id` declares this field as the primary key of the entity
-* `@GeneratedValue` declares this field as a generated value that will be auto-incremented
+* `@GeneratedValue` Identifies the type of primary key that will be used. 
 
 Run the application. 
 
