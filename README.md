@@ -18,5 +18,5 @@ You will see 4 different folders. Each folder will contain a `README.md` with in
 
 * `01-candyjar`
 * `02-starters`
-* `03-sping-data`
+* `03-spring-data`
 * `04-unit-testing`

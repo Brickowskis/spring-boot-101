@@ -24,36 +24,36 @@ Next add the following dependencies
 
 ```xml
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter</artifactId>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter</artifactId>
 </dependency>
 
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-thymeleaf</artifactId>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
 
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-web</artifactId>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 
 <dependency>
-	<groupId>org.projectlombok</groupId>
-	<artifactId>lombok</artifactId>
-	<scope>provided</scope>
+   <groupId>org.projectlombok</groupId>
+   <artifactId>lombok</artifactId>
+   <scope>provided</scope>
 </dependency>
 
 <dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-devtools</artifactId>
-  <scope>runtime</scope>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-devtools</artifactId>
+   <scope>runtime</scope>
 </dependency>
 ```
 
 #### Important Concepts
 
-* Spring Boot uses the concept of `starter` dependencies. The `starters` provide the dependencies you are likely to need for that type of `functionality`. 
+* Spring Boot uses the concept of `starter` dependencies. The `starters` provide the dependencies you are likely to need for that type of functionality. 
 * Run the command `mvn dependency:tree` and analyze the dependencies that are brought in by each starter. 
 
 ### Make the JAR executable
@@ -104,6 +104,8 @@ public class CandyJarApplication {
 
 * `@SpringBootApplication` is a convenience annotation for `@Configuration`, `@ComponentScan`, `@EnableAutoConfiguration`
 * `SpringApplication.run` is spring's mechanism to bootstrap the application.
+
+### Exposing RESTful endpoints
 
 Add the following method to `CandyJarController`
 
@@ -157,21 +159,25 @@ At this point we can run the application
 
 Hit the following URL in Chrome
 
-* `http://localhost:8080/`
+* [http://localhost:8080/](http://localhost:8080/)
 
 The following REST endpoints should also be exposed.
 
-* `http://localhost:8080/candy/`
+* [http://localhost:8080/candy/](http://localhost:8080/candy/)
 
-* `http://localhost:8080/candy/1`
+* [http://localhost:8080/candy/1](http://localhost:8080/candy/1)
 
-* `http://localhost:8080/candy/name/Twix`
+* [http://localhost:8080/candy/name/Twix](http://localhost:8080/candy/name/Twix)
 
 Examine the contents of the jar file
 
-`jar tvf candyjar-0.0.1-SNAPSHOT.jar
+`jar tvf candyjar-0.0.1-SNAPSHOT.jar`
 
-You'll also notice a `candyjar-0.0.1-SNAPSHOT.jar`. 
+You'll notice several things have been packaged into our jar to make an an uber runnable jar
+You'll also notice `candyjar-0.0.1-SNAPSHOT.jar.original`. Examine the contents
+
+`jar tvf candyjar-0.0.1-SNAPSHOT.jar.original`
+
 This is what the jar file looked like before it was modified by the `spring-boot-maven-plugin` during the `repackage` phase
 
 
