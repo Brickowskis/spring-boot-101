@@ -179,7 +179,7 @@ Examine the contents
 
 `jar tvf candyjar-0.0.1-SNAPSHOT.jar.original`
 
-This is what the jar file looked like before it was modified by the `spring-boot-maven-plugin` during the `repackage` phase
+You'll notice it's much smaller. This is what the jar looked like before modified by the `spring-boot-maven-plugin` in the `repackage` phase. 
 
 
 ### Summary
