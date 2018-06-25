@@ -2,7 +2,7 @@
 
 In this module we'll learn the basics of [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.0.2.RELEASE/reference/htmlsingle/#boot-features-jpa-and-spring-data).  Spring Data JPA is basic ORM mapper to map java objects to relational databases. 
 
-cd into `03-spring-data
+cd into `03-spring-data`
 
 
 ### Update our Dependencies
@@ -84,6 +84,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+
 @Entity
 public class Candy {
 	
@@ -95,12 +96,20 @@ public class Candy {
 #### Important Concepts
 
 * `@Entity` annotation declares this object as a JPA managed entity.
-* `@Id` decaliase this field as the primary key of the entity
+* `@Id` declares this field as the primary key of the entity
 * `@GeneratedValue` declares this field as a generated value that will be auto-incremented
 
 Run the application. 
 
-`mvn spring-boot:run`
+`mvn spring-boot:run -Dspring-boot.run.profiles=local`
+
+Hit the following URL in Chrome. Your candy jar should still function with an in-memory database. 
+
+* [http://localhost:8080/](http://localhost:8080/)
+
+Hit the following URL in Chrome. You should see the H2 console
+
+* [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
 
 ### Summary
 
