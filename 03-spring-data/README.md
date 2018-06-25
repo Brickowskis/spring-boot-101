@@ -107,7 +107,7 @@ Hit the following URL in Chrome. Your candy jar should still function with an in
 
 * [http://localhost:8080/](http://localhost:8080/)
 
-Hit the following URL in Chrome. You should see the H2 console
+Hit the following URL in Chrome. Use `jdbc:h2:mem:testdb` as the JDBC URL. You should see the H2 console
 
 * [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
 
