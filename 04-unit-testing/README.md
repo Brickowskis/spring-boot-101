@@ -26,6 +26,8 @@ Run a `mvn dependency:tree`. Inspect the additional libraries the starter pulled
   * [JsonPath](https://github.com/json-path/JsonPath): XPath for JSON.
 
 
+### Testing the Spring Context 
+
 Add the following test `io.candyjar.CandyJarApplicationTests`
 
 ```java
@@ -38,8 +40,9 @@ public class CandyJarApplicationTests {
 	}
 }
 ```
+Run the test. It should pass. This test validates the spring context loads successfully. 
 
-This test validates the spring context loads successfully. 
+### Testing JPA Functionality
 
 Add the following test `io.candyjar.repository.DataJpaExampleTest`
 
@@ -73,12 +76,15 @@ public class DataJpaExampleTest {
     }
 }
 ```
-### Important Concepts
+Run the test. It should pass. 
+
+#### Important Concepts
 
 * `@RunWith(SpringRunner.class)` tells JUnit to run using Spring's testing support.
 * `@DataJpaTest` configures an in-memory database, scans for `@Entity` classes and confgirues the JPA repository.
 * `TestEntityManager` is an alternative to the standard `EntityManager`. It's designed specifically for tests. 
 
+### Testing REST Controllers
 
 Add the following test `io.candyjar.controller.MockMvcSampleTest`
 
@@ -137,6 +143,8 @@ public class MockMvcSampleTest {
 
 }
 ```
+Run the test. It should pass. 
+
 #### Important Concepts
 
 * `@SpringBootTest` bootstraps a local Spring Boot environment for testing
@@ -144,6 +152,7 @@ public class MockMvcSampleTest {
 * `@MockBean` injects a mock bean instance in place of a real bean. 
 * `given(...)` is the BDD mockito style syntax to setup behavior on our mock objects. 
 
+### Alternative way to Test the REST Controllers
 
 Add the following test `io.candyjar.controller.RestTemplateExampleTest`
 
@@ -211,9 +220,12 @@ public class RestTemplateExampleTest {
     }
 }
 ```
+Run the test. It should pass. 
+
 #### Important Concepts
 * Sometimes it's more beneficial to execute the controllers as a client would. 
 * 'TestRestTemplate' is made available by `@SpringBootTest` and pre-configured for local integration testing. 
+* `SpringBootTest.WebEnvironment.RANDOM_PORT` configures a web environment running on a random port to avoid conflicts. 
 
 ### Summary
 
