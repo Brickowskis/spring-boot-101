@@ -1,8 +1,24 @@
 ## Module 2
 
 In module 2 we'll take a closer look at the `spring-boot-starters` and [Actuators](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html)
+* Use property driven logging levels that are implementation agnostic
 * We are going to experiment with our transitive dependencies by swapping out [logback](https://logback.qos.ch/) for [log4j2](https://logging.apache.org/log4j/2.x/).  
 * We will turn on actuator support for diagnostics and management of our application. 
+
+### Logging levels
+We can easily change our logging levels independently of the logging implementation.
+This allows us to be more flexible as the application evolves and externalize our configuration
+as properties.
+
+To your `application.yml` file, add the following:
+```yaml
+logging:
+  level:
+    ROOT: info
+    org.springframework.web: debug
+```
+
+When you start your application, you'll notice there's now debug logs for the Spring MVC classes.
 
 ### Change logging implementation
 
