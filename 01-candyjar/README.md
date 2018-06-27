@@ -84,6 +84,13 @@ Add the `spring-boot-maven-plugin` to the plugins section of your pom.
 Modify the `CandyJarApplication` so it looks like this
 
 ```java
+import io.candyjar.model.Candy;
+import io.candyjar.repository.CandyJarRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
 @SpringBootApplication
 public class CandyJarApplication {
 
@@ -109,6 +116,15 @@ public class CandyJarApplication {
 Add the following method to `CandyJarController`
 
 ```java
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+...
+...
+...
+
+
 @GetMapping("/")
 public ModelAndView index() {
 	ModelAndView modelAndView = new ModelAndView();
@@ -121,6 +137,13 @@ public ModelAndView index() {
 Add the following methods to `CandyJarRestController` and annotate the class with `@RestController`
 
 ```java
+import io.candyjar.model.Candy;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.Optional;
+...
+...
+...
 @GetMapping("/candy")
 public List<Candy> getCandy() {
 	return candyJarService.findAll();
